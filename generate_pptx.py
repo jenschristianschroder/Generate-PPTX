@@ -38,6 +38,8 @@ DATAVERSE_ENTITY_COLUMNS = os.getenv('DATAVERSE_ENTITY_COLUMNS')
 DATAVERSE_ENTITY_FILTER_COLUMN = os.getenv('DATAVERSE_ENTITY_FILTER_COLUMN')
 
 PPTX_TEMPLATE = os.getenv('PPTX_TEMPLATE', 'template.pptx')
+PPTX_TABLE_STYLE_ID = os.getenv('PPTX_TABLE_STYLE_ID')
+
 base_path = os.getcwd()
 OUTPUT_PATH = os.path.join(base_path, "output")
 
@@ -101,8 +103,7 @@ def create_table(slide, rows, cols, left, top, width, height, font_size, font_bo
     new_shape = slide.shapes.add_table(rows, cols, left, top, width, height)
     new_table = new_shape.table
     tbl =  new_shape._element.graphic.graphicData.tbl
-    style_id = "{073A0DAA-6AF3-43AB-8588-CEC1D06C72B9}"
-    tbl[0][-1].text = style_id
+    tbl[0][-1].text = PPTX_TABLE_STYLE_ID
 
     # Apply font size and bold formatting to all cells
     for cell in iter_cells(new_table):

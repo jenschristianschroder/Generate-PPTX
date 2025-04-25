@@ -33,6 +33,10 @@ TENANT_ID = os.getenv('DATAVERSE_TENANT_ID')
 DATAVERSE_URL = os.getenv('DATAVERSE_URL')
 DATAVERSE_API_URL = os.getenv('DATAVERSE_API_URL')
 
+DATAVERSE_ENTITY = os.getenv('DATAVERSE_ENTITY')
+DATAVERSE_ENTITY_COLUMNS = os.getenv('DATAVERSE_ENTITY_COLUMNS')
+DATAVERSE_ENTITY_FILTER_COLUMN = os.getenv('DATAVERSE_ENTITY_FILTER_COLUMN')
+
 PPTX_TEMPLATE = os.getenv('PPTX_TEMPLATE', 'template.pptx')
 base_path = os.getcwd()
 OUTPUT_PATH = os.path.join(base_path, "output")
@@ -240,10 +244,10 @@ if __name__ == '__main__':
     jobid = "10960a97-4621-f011-8c4d-7c1e5283aeb9"
    
     data = fetch_data(
-        entity='jeschro_results',
+        entity=DATAVERSE_ENTITY,
         token=token,
-        select=['_jeschro_job_value, jeschro_content'],
-        filter_expr=f"_jeschro_job_value eq '{jobid}'"
+        select=[DATAVERSE_ENTITY_COLUMNS],
+        filter_expr="".join([DATAVERSE_ENTITY_FILTER_COLUMN, f" eq '{jobid}'"])
     )
 
     if not data:
